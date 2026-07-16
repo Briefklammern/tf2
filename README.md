@@ -155,34 +155,40 @@ resource "yandex_compute_instance" "platform" {
 
 1. Вместо использования трёх переменных  ".._cores",".._memory",".._core_fraction" в блоке  resources {...}, объедините их в единую map-переменную **vms_resources** и  внутри неё конфиги обеих ВМ в виде вложенного map(object).  
    ```
-   пример из terraform.tfvars:
-   vms_resources = {
-     web={
-       cores=2
-       memory=2
-       core_fraction=5
-       hdd_size=10
-       hdd_type="network-hdd"
-       ...
-     },
-     db= {
-       cores=2
-       memory=4
-       core_fraction=20
-       hdd_size=10
-       hdd_type="network-ssd"
-       ...
-     }
-   }
+   variable "vms_resources" {
+	type = map(object({
+    cores         = number
+    memory        = number
+    core_fraction = number
+  }))
+
+  default = {
+	web={
+		cores			=2
+		memory			=1
+		core_fraction	=20
+		},
+	db={
+		cores			=2
+		memory			=2
+		core_fraction	=20
+		}
+  }
+}
    ```
 3. Создайте и используйте отдельную map(object) переменную для блока metadata, она должна быть общая для всех ваших ВМ.
-   ```
-   пример из terraform.tfvars:
-   metadata = {
-     serial-port-enable = 1
-     ssh-keys           = "ubuntu:ssh-ed25519 AAAAC..."
-   }
+```
+  Содержимое terraform.tfvars:
+  vms_metadata_serial_port_enable = 1
+  vms_ssh_public_key = "ubuntu:ssh-ed25519 AAAAC3...."
+------------------------------------------------------
+  Описание блока metadata в main.tf:
+  metadata = {
+    "serial-port-enable" = var.vms_metadata_serial_port_enable
+    "ssh-keys"          = var.vms_ssh_public_key
+  }
    ```  
-  
 5. Найдите и закоментируйте все, более не используемые переменные проекта.
 6. Проверьте terraform plan. Изменений быть не должно.
+
+![last_plan](./img/10.PNG)
