@@ -121,6 +121,13 @@ resource "yandex_compute_instance" "platform" {
 2. Скопируйте блок ресурса и создайте с его помощью вторую ВМ в файле main.tf: **"netology-develop-platform-db"** ,  ```cores  = 2, memory = 2, core_fraction = 20```. Объявите её переменные с префиксом **vm_db_** в том же файле ('vms_platform.tf').  ВМ должна работать в зоне "ru-central1-b"
 3. Примените изменения.
 
+![db](./img/4.PNG)
+
+![db](./img/5.PNG)
+
+![db](./img/6.PNG)
+
+![db](./img/7.PNG)
 
 ### Задание 4
 
