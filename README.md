@@ -178,10 +178,10 @@ resource "yandex_compute_instance" "platform" {
    ```
 3. Создайте и используйте отдельную map(object) переменную для блока metadata, она должна быть общая для всех ваших ВМ.
 ```
-  Содержимое terraform.tfvars:
+Содержимое terraform.tfvars:
   vms_metadata_serial_port_enable = 1
-  vms_ssh_public_key = "ubuntu:ssh-ed25519 AAAAC3...."
-------------------------------------------------------
+  vms_ssh_public_key = "ubuntu:ssh-ed25519 AAAAC3"
+__________________________________________________
   Описание блока metadata в main.tf:
   metadata = {
     "serial-port-enable" = var.vms_metadata_serial_port_enable
