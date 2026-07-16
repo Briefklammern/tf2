@@ -154,15 +154,14 @@ resource "yandex_compute_instance" "platform" {
 ### Задание 6
 
 1. Вместо использования трёх переменных  ".._cores",".._memory",".._core_fraction" в блоке  resources {...}, объедините их в единую map-переменную **vms_resources** и  внутри неё конфиги обеих ВМ в виде вложенного map(object).  
-   ```
+<code>
    variable "vms_resources" {
 	type = map(object({
     cores         = number
     memory        = number
     core_fraction = number
   }))
-
-  default = {
+default = {
 	web={
 		cores			=2
 		memory			=1
@@ -175,7 +174,7 @@ resource "yandex_compute_instance" "platform" {
 		}
   }
 }
-   ```
+</code>
 3. Создайте и используйте отдельную map(object) переменную для блока metadata, она должна быть общая для всех ваших ВМ.
 ```
 Содержимое terraform.tfvars:
