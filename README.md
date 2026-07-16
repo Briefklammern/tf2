@@ -63,7 +63,57 @@ resource "yandex_compute_instance" "platform" {
 1. Замените все хардкод-**значения** для ресурсов **yandex_compute_image** и **yandex_compute_instance** на **отдельные** переменные. К названиям переменных ВМ добавьте в начало префикс **vm_web_** .  Пример: **vm_web_name**.
 2. Объявите нужные переменные в файле variables.tf, обязательно указывайте тип переменной. Заполните их **default** прежними значениями из main.tf. 
 3. Проверьте terraform plan. Изменений быть не должно. 
+```
+variables:
+--------------------------------------------
+variable "vm_web_image" {
+  type		= string
+  default	= "ubuntu-2004-lts"
+}
 
+variable "vm_web_name" {
+  type		= string
+  default	= "netology-develop-platform-web"
+}  
+
+variable "vm_web_platform_id" {
+  type		= string
+  default	= "standard-v3"
+}
+
+variable "vm_web_resources" {
+  type = object({
+    cores         = number
+    memory        = number
+    core_fraction = number
+  })
+  default = {
+    cores         = 2
+    memory        = 1
+    core_fraction = 20
+  }
+}
+--------------------------------------------
+```
+
+```
+main:
+--------------------------------------------
+data "yandex_compute_image" "ubuntu" {
+  family = var.vm_web_image
+}
+resource "yandex_compute_instance" "platform" {
+  name        = var.vm_web_name
+  platform_id = var.vm_web_platform_id
+  resources {
+    cores         = var.vm_web_resources.cores
+    memory        = var.vm_web_resources.memory
+    core_fraction = var.vm_web_resources.core_fraction
+  }
+--------------------------------------------
+```
+
+![changes](./img/3.PNG)
 
 ### Задание 3
 
