@@ -140,6 +140,7 @@ resource "yandex_compute_instance" "platform" {
 
 В качестве решения приложите вывод значений ip-адресов команды ```terraform output```.
 
+![output](./img/8.PNG)
 
 ### Задание 5
 
