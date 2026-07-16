@@ -181,15 +181,17 @@ default = {
 ```
 Содержимое terraform.tfvars:
   vms_metadata_serial_port_enable = 1
-  vms_ssh_public_key = "ubuntu:ssh-ed25519 AAAAC3"
-__________________________________________________
-  Описание блока metadata в main.tf:
+  vms_ssh_public_key = "ubuntu:ssh-ed25519 AAAAC3..."
+```
+
+```
+Описание блока metadata в main.tf:
   metadata = {
     "serial-port-enable" = var.vms_metadata_serial_port_enable
     "ssh-keys"          = var.vms_ssh_public_key
   }
-   ```  
-5. Найдите и закоментируйте все, более не используемые переменные проекта.
-6. Проверьте terraform plan. Изменений быть не должно.
+```  
+3. Найдите и закоментируйте все, более не используемые переменные проекта.
+4. Проверьте terraform plan. Изменений быть не должно.
 
 ![last_plan](./img/10.PNG)
